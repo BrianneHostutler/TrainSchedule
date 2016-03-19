@@ -1,22 +1,33 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Train Schedule</title>
-</head>
+
 <!-- Latest compiled and minified CSS & JS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
+ <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
+
+ <!-- Moment.js Reference -->
+    <!-- <script src="http://momentjs.com/downloads/moment.js"></script> -->    
+     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
 
 <link rel="stylesheet" href="css/style.css">
+
+</head>
 <body>
 
+<!-- creates the jumbotron -->
 <div class="container">
 		<div class= "jumbotron">
 			<h1>Train Schedule</h1><br>	
 		</div>
 
-<!-- creates the table for current employees -->
+<!-- creates the table for current trains -->
 <div class="panel panel-default">
 			<div class= "panel-heading">
 				<div class="panel-title">Current Train Schedule</div>
@@ -26,11 +37,11 @@
 				<table class= "table">
 					<thead>
 						<tr>
-							<td id= "name">Train Name</td>
-							<td id= "destination">Destination</td>
-							<td id= "frequency">Frequency (min)</td>
-							<td id= "nextArrival">Next Arrival</td>
-							<td id= "minutesAway">Minutes Away</td>
+							<td>Train Name</td>
+							<td>Destination</td>
+							<td>Frequency (min)</td>
+							<td>Next Arrival</td>
+							<td>Minutes Away</td>
 						</tr>
 					</thead>
 
@@ -44,40 +55,35 @@
 </div>			
 
 
-<!-- 
-creates the form -->
+<!-- creates heading for the form -->
 		<div class="panel panel-default">
 			<div class= "panel-heading">
 				<div class="panel-title">Add Train</div>
 			</div>	
 
-
+<!-- creates the form -->
 			<div class= "panel-body">
-				<form role="form">
+				<form>
 					<div class="form-group">
 						<label>Train Name</label><br>
-						<input type="text" placeholder=" ">
+						<input type="text"  id= "trainNameInput" class="form-control">
 					</div>	
 					<div class= "form-group">
 						<label>Destination</label><br>
-						<input type="text" placeholder=" ">
+						<input type="text"  id= "destinationInput"class="form-control">
 					</div>
 					<div class= "form-group">
 						<label>Frequency (min)</label><br>
-						<input type="text" placeholder=" ">
+						<input type="number" id= "frequencyInput"class="form-control">
 					</div>
-					<button type= submit>Submit</button>
-
+					<button type= submit id="submit">Submit</button>
+				</form>	
 			</div>		
 		</div>	
 
 </div>
 
 <script src="script.js"></script>
-
-
-</body>
-</html>
 
 
 
