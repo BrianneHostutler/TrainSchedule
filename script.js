@@ -47,18 +47,16 @@ TrainData.on("child_added", function(childSnapshot, prevChildKey){
     console.log(childSnapshot.val());
 
     // Store everything into a variable.
+    var CurrentTime = (moment().format("hh:mm:ss a"));
+
+
     var TRName = childSnapshot.val().name;
     var TRdestination = childSnapshot.val().place; 
-    var TRNextArrival = childSnapshot.val().time;   
+    var TRNextArrival = (moment().format("hh:mm a"));  
     var TRfrequency = childSnapshot.val().frequency;
 
-    // train Info
-    console.log(TRName);
-    console.log(TRdestination);
-    console.log(TRNextArrival);
-    console.log(TRfrequency);
-    
     var minutesAway = "X"
+    
 
     // Add each train's data into the table 
     $("#table > tbody").append("<tr><td>" + TRName + "</td><td>" + TRdestination + "</td><td>" + TRNextArrival + "</td><td>" + TRfrequency + "</td><td>" + minutesAway + "</td></tr>");
