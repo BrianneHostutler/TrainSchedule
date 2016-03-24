@@ -2,37 +2,38 @@
 
 var TrainData = new Firebase("https://bhtrains.firebaseio.com/");
 
-// use moment.js, next train- minutes we are at right now
+
 $("#submit").on("click", function(){
 	
    // Grabs user input
     var TRname = $("#trainNameInput").val().trim();
     var TRdestination = $("#destinationInput").val().trim();
-    // var  = moment($("#startInput").val().trim(), "DD/MM/YY").format("X");
-    var  TRfrequency= $("#frequencyInput").val().trim();
-
+    var TRfirstTrainTime = moment($("#startInput").val().trim(), "hh:mm").format("X");
+    var TRfrequency= $("#frequencyInput").val().trim();
 
    // Creates local "temporary" object for holding  data
     var newTrain = {
         name:  TRname,
         place: TRdestination,
-        // start: empStart,
+       	time: TRfirstTrainTime,
         frequency: TRfrequency
     }
 
-  // Uploads employee data to the database
+  // Uploads train data to the database
     TrainData.push(newTrain);
 
    // Logs everything to console
     console.log(newTrain.name);
     console.log(newTrain.place); 
+    console.log(newTrain.time); 
     console.log(newTrain.frequency);
 
-    alert("Employee successfully added");
+    alert("Train successfully added");
 
 //clears text boxes
     $("#trainNameInput").val("");
     $("#destinationInput").val(""); 
+    $("#startInput").val("");
     $("#frequencyInput").val("");
 
     // Prevents moving to new page
@@ -40,38 +41,48 @@ $("#submit").on("click", function(){
 });
 
 
-
-// 3. Create Firebase event for adding employee to the database and a row in the html when a user adds an entry
+// 3. Create Firebase event for adding train to the database and a row in the html when a user adds an entry
 TrainData.on("child_added", function(childSnapshot, prevChildKey){
 
     console.log(childSnapshot.val());
 
     // Store everything into a variable.
     var TRName = childSnapshot.val().name;
-    var TRdestination = childSnapshot.val().place;    
+    var TRdestination = childSnapshot.val().place; 
+    var TRNextArrival = childSnapshot.val().time;   
     var TRfrequency = childSnapshot.val().frequency;
 
-    // Employee Info
+    // train Info
     console.log(TRName);
     console.log(TRdestination);
+    console.log(TRNextArrival);
     console.log(TRfrequency);
     
-
-    // // Prettify the employee start
-    // var empStartPretty = moment.unix(empStart).format("MM/DD/YY");
-    // // Calculate the months worked using hardconre math
-    // // To calculate the months worked 
-    // var empMonths = moment().diff(moment.unix(empStart, 'X'), "months");
-    // console.log(empMonths);
-
-    // // Calculate the total billed rate
-    // var empBilled = empMonths * empRate;
-    // console.log(empBilled);
+    var minutesAway = "X"
 
     // Add each train's data into the table 
-    $("#table > tbody").append("<tr><td>" + TRName + "</td><td>" + TRdestination + "</td><td>" + TRfrequency + "</td></tr>");
+    $("#table > tbody").append("<tr><td>" + TRName + "</td><td>" + TRdestination + "</td><td>" + TRNextArrival + "</td><td>" + TRfrequency + "</td><td>" + minutesAway + "</td></tr>");
 
 });
+
+
+// 60 -current minutes= minutes away
+
+// use moment.js, next train- minutes we are at right now
+// 
+
+// the train starts at 06:00 and runs every hour
+// display the next time it will be arriving  
+// and how many minutes away it is 
+// based on the current time
+
+// var FirstHour = "06:00";
+// var convertedHour = moment(new Date(FirstHour));
+// console.log(convertedHour);
+
+  
+// var NextArrival= moment().add(1, 'hours').calendar();
+// console.log(NextArrival);
 
 
 
